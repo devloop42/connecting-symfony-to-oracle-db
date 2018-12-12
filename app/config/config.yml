@@ -39,13 +39,17 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
+        default_connection:   default
+        connections:
+            default:
+                driver:   oci8
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                service:  true
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  AL32UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -69,3 +73,9 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+services:
+    listener:
+        class: Doctrine\DBAL\Event\Listeners\OracleSessionInit 
+        tags:
+            - { name: doctrine.event_listener, event: postConnect, connection: default }
