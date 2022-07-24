@@ -1,5 +1,5 @@
-Symfony framework 3.4 connecting to an Oracle DB
-====================================================
+Connecting Symfony to an Oracle Database
+========================================
 
 Symfony 3.4 project just configured to access an Oracle database
 
